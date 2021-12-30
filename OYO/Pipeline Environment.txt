@@ -1,8 +1,0 @@
-An environment is a collection of resources that can be targeted by deployments from a pipeline. Environments can include Kubernetes clusters, Azure web apps, virtual machines, databases. Typical examples of environment names are Dev, Test, QA, Staging, and Production.
-
-The advantages of using environments include the following.
-
-Deployment history — Pipeline name and run details are recorded for deployments to an environment and its resources. In the context of multiple pipelines targeting the same environment or resource, the deployment history of an environment is useful to identify the source of changes.
-Traceability of commits and work items — View jobs within the pipeline run that target an environment. You can also view the commits and work items that were newly deployed to the environment. Traceability also allows one to track whether a code change (commit) or feature/bug-fix (work items) reached an environment.
-Diagnose resource health — Validate whether the application is functioning at its desired state.
-Permissions — Secure environments by specifying which users and pipelines are allowed to target an environment.
