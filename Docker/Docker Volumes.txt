@@ -1,0 +1,8 @@
+Docker volumes allows you to persist data after a container dies
+Normal volumes:- normal volume managed by the docker.
+Bind Volumes:- we will create the folder and map that folder to the container to map content.
+Anonymous Volumes :- 
+Bind Volumes:-   docker run -d -v /mnt/myfolder:/usr/share/httpd/noindex/index.html --name httpd httpd:v1
+Normal volumes:- 
+docker volume create mysql_volume
+docker run -d -v mysql_volume:/usr/share/httpd/noindex/index.html --name httpd httpd:v1

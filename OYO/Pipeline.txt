@@ -1,0 +1,23 @@
+Azure DevOps Pipeline
+Azure Pipeline is a cloud service that we can use to build and test our code project automatically. The Azure pipeline has a lot of capabilities such as continuous integration and continuous delivery to regularly and consistently test and builds our code and ship to any target.
+
+There are three key distinct advantages of using Azure DevOps pipelines.
+
+Azure DevOps Pipeline
+Version control system: Azure Pipelines integrates with GitHub, GitHub Enterprise, Azure Repos Git & TFVC, Bitbucket Cloud, and Subversion.
+
+Language and application types: We can use Azure Pipeline with most application types and languages, such as Java, JavaScript, Node.js, Python, .Net, C++, Go, PHP, and Xcode.
+
+Deployment target: We can use Azure Pipelines to deploy our code to multiple targets. Targets include - container registries, virtual machines, Azure services, or any on-premises or cloud target.
+
+Azure DevOps Pipeline concepts
+Pipeline: It is a workflow that defines how our test, build, and deployment steps are run.
+Stage: It is a logical boundary in the pipeline. It can be used to mark the separation of concerns. Each stage contains one or more jobs.
+Job: A stage can contain one or more jobs. Each job runs on an agent. It represents an execution boundary of a set of steps.
+Step: It is the smallest building block of a pipeline. It can either be a script or a task. A task is simply an already created script offered as a convenience to you.
+Agent and Agent pools: An agent is an installable software that runs one job at a time. Instead of managing each agent individually, you organize agents into agent pools.
+Artifact: It is a collection of files or packages published by a run. The Artifact is made available to subsequent tasks, such as distribution or deployment.
+Trigger: It is something that is set up to tell the pipeline when to run. We can configure a pipeline to run upon a push to the repository, at scheduled times, etc.
+Environment: It is a collection of resources, where you deploy your application. It contains one or more virtual machines, containers, web apps, etc.
+Checks: Checks define a set of validations required before a deployment can be performed.
+Runs: It represents a single execution of a pipeline and collects the logs associated with running the steps and the results of running tests.

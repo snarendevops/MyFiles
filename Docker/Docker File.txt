@@ -1,0 +1,91 @@
+By default sudo will not work in Docker file, if need its need to be install
+"Docker build" command allows to create a image using a docker file
+"--tag" is the name of that image, if provide the version its take the version else its take the latest version.
+If docker build without change its just uses the cache which created the earlier on this docker image.
+If docker file build with change then that step only will create again and remaining will use the cache which created earlier.
+If docker file is name like Dockerfile 2  then use the command like following "docker build --tag nginx -f Dockerfile2 ."
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+RUN:- 
+Its overwrite the "/usr/share/nginx/html/index.html". As per below instead of the html code its display "Hi Team...Happy New Year".
+RUN echo "Hi Team...Happy New Year" >  /usr/share/nginx/html/index.html  
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+COPY:-
+This can be used to copy the files. As per below instead of "index.html" code, image displays "helloworld.txt" content.
+COPY ./helloworld.txt /usr/share/nginx/html/index.html
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+ADD:-
+ADD copies a file/directory from your host to your image, but can also fetch remote URLs, extract TAR files, etc...
+FROM centos
+RUN yum -y install httpd unzip
+ADD https://github.com/microsoft/project-html-website/archive/refs/heads/master.zip /var/www/html/code.zip
+RUN cd /var/www/html/ && unzip code.zip && mv /var/www/html/project-html-website-master/* /var/www/html
+CMD apachectl -DFOREGROUND
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+ENV:-
+To pass your environment variable to a container, we need to set it first. In this article, we are using Ubuntu, you can follow the demonstration if you are using Linux operating system for your container development.
+
+As previously explained, an environment variable consists of a variable name and its value. Let’s say we are going to create a variable named “POSTGRES_USER” and the variable value set to “masteruser”. To do so we can run this command:
+NOTE:- We can access the variable even after entered into the container.
+FROM centos
+RUN yum -y install httpd unzip
+ENV HTML project-html-website
+ADD https://github.com/microsoft/$HTML/archive/refs/heads/master.zip /var/www/html/code.zip
+RUN cd /var/www/html/ && unzip code.zip && mv /var/www/html/$HTML-master/* /var/www/html && echo $HTML > /var/www/html/env.html
+CMD apachectl -DFOREGROUND
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+MKDIR:-
+By using MKDIR no need to give the folder path to change directory. we can skip the path in RUN command or we can give "." as a route path.
+FROM centos
+RUN yum -y install httpd unzip
+ENV HTML project-html-website
+WORKDIR /var/www/html/
+ADD https://github.com/microsoft/$HTML/archive/refs/heads/master.zip ./code.zip
+RUN unzip code.zip && mv $HTML-master/* . && echo $HTML > ./env.html
+CMD apachectl -DFOREGROUND
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+LABEL:-
+FROM centos
+RUN yum -y install httpd unzip
+LABEL maintainer=naren
+LABEL version:1.0
+ENV HTML project-html-website
+WORKDIR /var/www/html/
+ADD https://github.com/microsoft/$HTML/archive/refs/heads/master.zip ./code.zip
+RUN unzip code.zip && mv $HTML-master/* . && echo $HTML > ./env.html
+CMD apachectl -DFOREGROUND
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+USER:-
+
+FROM centos
+RUN yum -y install httpd unzip
+ENV HTML project-html-website
+WORKDIR /var/www/html/
+ADD https://github.com/microsoft/$HTML/archive/refs/heads/master.zip ./code.zip
+RUN unzip code.zip && mv $HTML-master/* . && echo $HTML > ./env.html
+RUN useradd application && chown application:application /var/www/html -R
+USER application
+RUN rm -rf code.zip $HTML-master/
+USER root
+CMD apachectl -DFOREGROUND
+
+NOTE:- Docker logs "Container Name"
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+ARG:-
+
+FROM centos
+ARG user=application
+ARG httpd=httpd_pkg
+RUN yum -y install $httpd_pkg unzip
+ENV HTML project-html-website
+WORKDIR /var/www/html/
+ADD https://github.com/microsoft/$HTML/archive/refs/heads/master.zip ./code.zip
+RUN unzip code.zip && mv $HTML-master/* . && echo $HTML > ./env.html
+RUN useradd $user && chown $user:$user /var/www/html -R
+USER $user
+RUN rm -rf code.zip $HTML-master/
+USER root
+CMD apachectl -DFOREGROUND
+docker build --tag httpd:v1 -f Dockerfile2 --build-arg user=narendra httpd_pkg=httpd .
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+CMD:-

@@ -1,0 +1,38 @@
+Bridge Network
+Host Network
+None Network
+
+-----
+ip a | grep docker
+docker network ls
+docker inspect "container name"
+docker network inspect bridge  --- Its display all the network for the bridge.
+containers will communicate each other like below
+docker exec container1 bash -c "ping 172.17.0.3"       
+Note:n- "72.17.0.3 is container2 ip". As per above docker can connect with only IP but not with the container name.
+----create your own network-----------
+docker network create --help
+docker network create -d bridge --subnet 172.18.0.0/16 --gateway  172.18.0.1 docker_network
+docker network rm docker_network
+docker run -dtl --network docker_network --name httpd httpd:v1
+-----connect disconnect---------------
+docker network create -d bridge --subnet 172.18.0.0/16 --gateway  172.18.0.1 docker_network1
+docker run -dtl --network docker_network1 --name httpd1 httpd1:v1
+docker network create -d bridge --subnet 172.19.0.0/16 --gateway  172.19.0.1 docker_network2
+docker run -dtl --network docker_network2 --name httpd2 httpd2:v1
+
+docker exec docker_network1 bash -c "ping docker_network1" --------docker_network1 can't reach to docker_network2
+docker exec docker_network2 bash -c "ping docker_network2" --------docker_network2 can't reach to docker_network1
+
+below help to communicate between docker_network2 and docker_network1
+docker network connect httpd1 docker_network2
+docker exec docker_network1 bash -c "ping docker_network2"
+-----assign specific IP to container----------------------
+docker network create -d bridge --subnet 172.18.0.0/16 --gateway  172.18.0.1 docker_network1
+docker run -dtl --network docker_network1 --ip 172.18.0.50 --name httpd1 httpd1:v1
+------------------------HOST---------------------------------------------------
+it helps to create a container with exact same host name
+docker run --rm -ti centos bash             ----Its uses the same host name of docker container.
+docker run --rm -ti --network host centos bash
+------------------------NONE---------------------------------------------------
+docker run --rm -ti --network bash centos bash

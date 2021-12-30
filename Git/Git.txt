@@ -1,0 +1,39 @@
+-------------------------------Configure User Information in Git---------------------------------------------------------------
+git init
+git config
+git config --global user.name "naren, reddy"
+git config --global user.email "naren7607@gmail.com"
+git config --list
+git help
+-------------------------------create first git repository---------------------------------------------------------------
+git status --verify the changes
+git add . or git add Test.txt                ---once after this the file will coloured into green
+git commit -m "first commit"                 ---"-m" means ithats indicate a message --We always commit the changes on local repository only
+if modified the Test.txt file and then if we see git status its shows as modified.
+git log                                      ---Will display the all commit logs
+git log --author="naren, reddy"              ---to see the logs for particular user/author.
+---------------------------git workflow-------------------------------------------------------------------------------------------------------------
+Working Area -> Staging Area -> Repository
+
+<<Quote>>
+git status
+On branch master
+Changes not staged for commit:
+<<UnQuote>> ---Means the modified files are still in Working Area(Means "GitPractise" folder only)
+
+<<Quote>>
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   Test1.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Test2.txt
+<<UnQuote>> ---Means here two files and one files is add and has not been added. If we commit now the added file only gets commit
+
+----------------Delete files-----------------------------------------------------------------------------------------------------------
+when deleted file manually in local system then thats need to use "git add ." and "git commit" commands to sync the stage area and local repository
+But when delete through command "git rm" no need to fire "git add ." command we can use "git commit" command.
+

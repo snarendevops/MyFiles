@@ -1,0 +1,16 @@
+A library is a collection of build and release assets for an Azure DevOps project. Assets defined in a library can be used in multiple build and release pipelines of the project. The Library tab can be accessed directly in Azure Pipelines.
+
+
+Variable groups store values and secrets that you might want to be passed into a YAML pipeline or make available across multiple pipelines. You can share and use variables groups in multiple pipelines in the same project.
+
+Variables groups are protected resources. You can add approvals and checks to these variables and set pipeline permissions.
+
+Secure files give you a way to store files that you can share across pipelines. Use the secure files library to store files such as:
+
+signing certificates
+Apple Provisioning Profiles
+Android Keystore files
+SSH keys
+These files can be stored on the server without having to commit them to your repository.
+
+The contents of the secure files are encrypted and can only be used when you consume them from a task. Secure files are a protected resource. You can add approvals and checks to them and set pipeline permissions. Secure files also can use the Library security model.

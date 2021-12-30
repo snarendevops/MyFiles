@@ -1,0 +1,41 @@
+version=$(az aks get-versions -l "eastus" --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+
+az group create --name KubernetesRG --location "eastus"
+
+az aks create --resource-group KubernetesRG --name oyoakscluster --enable-addons monitoring --kubernetes-version $version --generate-ssh-keys --location "eastus"
+
+az acr create --resource-group KubernetesRG --name oyoazacr --sku Standard --location "eastus"
+CLIENT_ID=$(az aks show -g KubernetesRG -n oyoakscluster --query "identityProfile.kubeletidentity.objectId" --output tsv)
+----CLIENT_ID=$(az aks show --resource-group KubernetesRG --name oyoakscluster --query "servicePrincipalProfile.clientId" --output tsv)
+ACR_ID=$(az acr show -n oyoazacr --query "id" --output tsv)
+----ACR_ID=$(az acr show --name oyoazacr --resource-group KubernetesRG --query "id" --output tsv)
+
+----az role assignment create --assignee $CLIENT_ID --role acrpull --scope $ACR_ID
+az role assignment create --role AcrPull --assignee-object-id $CLIENT_ID --scope $ACR_ID
+
+
+az sql server create -l "eastus" -g KubernetesRG -n oyosqlserver -u sqladmin -p P2ssw0rd1234
+
+
+az sql db create -g KubernetesRG -s oyosqlserver -n mhcdb --service-objective S0
+
+
+az aks get-credentials --resource-group KubernetesRG --name oyoakscluster
+
+kubectl get pods
+
+kubectl get service mhc-front --watch
+ az aks install-cli
+
+set PATH=%PATH%;C:\Users\mohamed.radwan\.azure-kubectl (for the current session) or copy it to Env vars
+
+kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+
+kubectl delete clusterrolebinding kubernetes-dashboard -n kube-system
+
+az aks browse --resource-group KubernetesRG --name oyoakscluster
+
+
+az aks scale --resource-group KubernetesRG --name oyoakscluster --node-count 3 
+
+az aks upgrade --resource-group KubernetesRG --name oyoakscluster --kubernetes-version 1.14.0

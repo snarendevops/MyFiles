@@ -1,0 +1,57 @@
+
+git diff                     
+<<quote>>
+diff --git a/Test.txt b/Test.txt
+index 579cd8d..f9535dc 100644
+--- a/Test.txt
++++ b/Test.txt
+@@ -1,3 +1 @@
+-Hi, How are you
+-
+-i am good
+\ No newline at end of file
++Hi, How are you
+\ No newline at end of file
+diff --git a/Test1.txt b/Test1.txt
+index 6426e55..e6eb057 100644
+--- a/Test1.txt
++++ b/Test1.txt
+@@ -1,5 +1,3 @@
+ Hi, How are you              
+
+-i am good
+-
+-had your lunch
+\ No newline at end of file
++not good
+\ No newline at end of file
+<<UnQuote>>  --- By using git diff modified file only can display but not the new file. Displays the data of local repository and modified inside the working repository.
+NOTE:- git diff displays what is in staging area and working area.
+
+-----------------
+
+<<Quote>>
+Narendranatha@bsindvm-0 MINGW64 ~/Desktop/GitPractise (master)
+$ git diff
+
+Narendranatha@bsindvm-0 MINGW64 ~/Desktop/GitPractise (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   Test.txt
+        modified:   Test1.txt
+        new file:   Test3.txt
+
+
+Narendranatha@bsindvm-0 MINGW64 ~/Desktop/GitPractise (master)
+<<UnQuote>>      ---- Here with git diff no changes but when check git status its showing some modified files and new files.
+suppose if we want to know difference between inside the stage area and local repository then we need to use below command.
+"git diff --staged"           ----By this new files too get display means "new file:   Test3.txt"
+
+git diff
+git diff "filename"           --------for specific file
+"git diff --staged"           ----By this new files too get display means "new file:   Test3.txt" (its compares staging area with GIT repository)
+git diff HEAD                 ----Compare working directory with repository. HEAD will get the details from last commit of repository
+git diff --staged HEAD
+git diff --staged HEAD "file name"

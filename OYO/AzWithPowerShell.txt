@@ -1,0 +1,49 @@
+Connect AKS Using PoweShell
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+az account show
+az aks Get-Credentials -n oyoakscluster -g KubernetesRG --overwrite-existing --admin
+**************************************************************************************************************************************************************
+CLUSTER_RESOURCE_GROUP=$(az aks show --resource-group KubernetesRG --name oyoakscluster --query nodeResourceGroup -o tsv)
+SCALE_SET_NAME=$(az vmss list --resource-group $CLUSTER_RESOURCE_GROUP --query '[0].name' -o tsv)
+kubectl get nodes
+
+az vmss extension set  \
+    --resource-group $CLUSTER_RESOURCE_GROUP \
+    --vmss-name $SCALE_SET_NAME \
+    --name VMAccessForLinux \
+    --publisher Microsoft.OSTCExtensions \
+    --version 1.4 \
+    --protected-settings "{\"username\":\"azureuser\", \"ssh_key\":\"$(cat ~/.ssh/id_rsa.pub)\"}"
+	
+az vmss update-instances --instance-ids '*' \
+    --resource-group $CLUSTER_RESOURCE_GROUP \
+    --name $SCALE_SET_NAME
+
+Ps : By default, the username for the AKS nodes is azureuser.
+ 
+Now we have ssh is activated, for that, and in order to create an SSH connection to an AKS node, you run a helper pod in your AKS cluster. This helper pod provides you with SSH access into the cluster and then additional SSH node access
+
+1 – We need to run container image and attach a terminal session to it. This container can be used to create an SSH session with any node in the AKS cluster :
+
+kubectl run -it --rm aks-ssh --image=mcr.microsoft.com/aks/fundamental/base-ubuntu:v0.0.11
+or
+kubectl run -it --rm aks-ssh --image=debian
+2- Now we need to install SSH client :
+
+apt-get update && apt-get install openssh-client -y
+
+3-Open a new terminal window, not connected to your container, copy your private SSH key into the helper pod. This private key is used to create the SSH into the AKS node.
+
+kubectl cp ~/.ssh/id_rsa $(kubectl get pod -l run=aks-ssh -o jsonpath='{.items[0].metadata.name}'):/id_rsa
+
+4-Return to the terminal session to your container, update the permissions on the copied id_rsa private SSH key so that it is user read-only ;
+
+chmod 0600 id_rsa
+5- Now the last step is to connect to your AKS node :
+
+#the first command will give us the nodes with their IP addresses
+kubectl get nodes -o wide
+#this command will set up a connection between the node IP that you have chosen using the ssh id_rsa
+ssh -i id_rsa azureuser@10.244.2.18
+When done, exit the SSH session and then exit the interactive container session. When this container session closes, the pod used for SSH access from the AKS cluster is deleted
+**************************************************************************************************************************************************************

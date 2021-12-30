@@ -1,0 +1,12 @@
+security 
+maintainance
+Best practise
+
+multiple masters
+master slave configuration
+
+high availabilty server on jenkins in azure
+to reduce downtime
+Jenkins with azure devops
+
+https://medium.com/signiant-engineering/indexing-multiple-jenkins-masters-60b9194a0117

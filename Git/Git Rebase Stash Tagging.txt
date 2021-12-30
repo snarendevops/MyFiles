@@ -1,0 +1,22 @@
+git rebase master
+git rebase --abort       If rebase not works with too many merge on the files need to abort
+git rebase --skip 
+
+git stash
+git stash apply
+git stash list
+git stash drop
+Git stash helps to save uncommited changes
+git stash -u      --for stashing untracked files
+git stash -a      --for stashing all the files
+git stash pop     --It will add the stash files. for examle there is 3 shash's when execute git stash pop the last stash file details will get added and that stash gets drop, and then if we execute the git stash pop secound then the last to secound shatsh files gets add and thats get drop.
+git stash drop stash@{1}
+git stash clear
+
+----------------------------------stashing the changes with branch-------------------------------
+git stash branch newb  ---if multiple changes are stashed by creating the branch with stash, all changes will apply in new branch and saved shash's gets dropped  
+----------------------------------Tag-------------------------------
+git tag "tag name"
+git tag list
+git tag --delete "tag name"
+git tag -a "tag name" its a annotated tag

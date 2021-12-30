@@ -1,0 +1,35 @@
+docker ps
+docker ps -a/--all                 (To see stopped containers)
+docker container ls -a/-all
+docker container create nginx:alpine
+docker rm "container name" 
+docker rm -f "container name"
+docker rename naughty_euclid jenkins_con
+docker run -d -p 8080:8080 jenkins/jenkins:latest (must be enable the port else can't be access from the browser)
+docker run -d -p 8090:8080 --name jenkins1 jenkins/jenkins:latest
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker rmi $(docker ps -a -q)
+docker exec -ti jenkins1 bash
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable in docker container, can be access in docker container itself, can't be access from outside of the container.
+1. variable can be pass from the file like below.
+FROM centos
+ENV var=1234
+RUN yum -y install httpd unzip
+ADD https://github.com/microsoft/project-html-website/archive/refs/heads/master.zip /var/www/html/code.zip
+RUN cd /var/www/html/ && unzip code.zip && mv /var/www/html/project-html-website-master/* /var/www/html
+CMD apachectl -DFOREGROUND
+2. variable can be pass from the below command. By using below we can overwrite the variable which is created by dockerfile.
+docker run -d -p 9090:80 --name env -e "renv=4321" env
+--------------------------------------------------------------Copy files local machine to into Container-----------------------------------------------
+httpd path:- cd usr/share/httpd/noindex/index.html
+docker cp test.html httpd:usr/share/httpd/noindex/index.html    --- Here "httpd" is a container name.----
+--------------------------------------------------------------Copy files Container to local machine to ------------------------------------------------
+docker cp httpd:opt/test.txt .
+echo "Hi Its changed" > usr/share/httpd/noindex/index.html --Its possible to change the container context --
+--------------------------------------------------------------create a image using Container ----------------------------------------------------------
+docker commit "containername" "new image name":v1
+By creating the image if any files or any customization in the container will be saved in the image, else when delete the container automatically the files and customization will get delete.
+--------------------------------------------------------------destroy the Container automatically------------------------------------------------------
+

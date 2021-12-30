@@ -1,0 +1,22 @@
+docker pull nginx
+docker pull nginx:1.21.4
+docker images
+docker rmi "image name"
+docker ps      To know the running containers
+docker ps -a   To know all the containers
+docker ps --no-trunc    to get the more details of "command"
+-----------------------------------------------------------------Stop or delete Docker Images------------------------------------------------------------------
+Stop all dockers                     docker stop $(docker ps -a -q)
+Remove all dockers(container)        docker rm $(docker ps -a -q)
+Delete docker all images             docker rmi $(docker ps -a -q)
+Remove all mounted volumes           docker volume ls -qf dangling=true | xargs -r docker volume rm
+Remove specific docker images        docker rm (docker ps -a |grep redis |awk '{print $1}')
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+exited error means it mighty be killed during run
+when image is not available locally docker will get the image from hub if its available
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+docker run -dt nginx:latest
+By above docker will create a container with some name
+docker run -dt -p 8080:80 nginx:latest             Port gets enable with this to access from the browser
+----------------------------------------------------------------Docker File------------------------------------------------------------------------------------
+docker exec -ti container_name bash

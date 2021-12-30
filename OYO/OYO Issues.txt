@@ -1,0 +1,5 @@
+DNS is not setup properly
+
+its not working properly with MAC but its working with Azure VPC
+
+Pod Access, key base authentication S# put S3

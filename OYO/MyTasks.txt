@@ -1,0 +1,42 @@
+multi colud deployment
+Code is in place and files in another place
+multicloud - pipeline for azure, aws, gcp
+*******************************************************************************************
+build the docker image -- azure repos /Git hub - deploy into the Kubernetes 
+*******************************************************************************************
+jenkins -> load balancer,
+github --> loadbalancer--> target group -->
+hit jenkins.
+
+jenkins -->
+Azure DevOps.
+
+jenkins + github --> webhook.
+github hit jenkins --> loadbalancer.
+
+1. loadbalacer creation.
+2. private server behind public load.
+
+Terraform.
+Complete pipeline.
+github + container
+
+Azure Repo, Github, reristry and
+docker file
+docker file.
+java, ruby, python django.
+
+Github Actions.
+*******************************************************************************************
+
+can we create nsg on load balancer if yes, can we implement dns and private IP , Public IP
+
+jenkins is not working with loadbalancer
+
+authentication ad
+ingress
+external load
+internal load
+secret management key vaults
+azure rds
+kubernetes network policy
