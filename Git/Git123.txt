@@ -1,0 +1,58 @@
+Git Configuration
+****************************************************************************************************************************************
+git config --global user.name "naren, reddy"
+git config --global user.email "naren7607@gmail.com"
+git config --list               to see the config details
+git help add
+****************************************************************************************************************************************
+git init
+git status -- to verify the changes(Shows Untracked files)
+git add ./ git add "file name"
+git commit -m "My First commit"
+git log          to list the logs commited
+git log --author="naren, reddy"       to get to know the commits done by particular user
+git log --oneline --graph --decorate
+git log	By default formatting, shows the whole commit history. Uses space for scrolling, and q for exiting if the log output takes up multiple screens.
+git log -n <limit>	Limits the number of commits. For example, git log -n 2 displays only 2 commits.
+git log --oneline	Fits each commit on a single line which is useful for an overview of the project history.
+git log --stat	Includes changed files and the number of added or deleted lines from them besides the git log information.
+git log -p	Shows the patch for each commit as well as their full diff.
+git log --author="<pattern>"	Searches for commits by a specified author. The <pattern> argument can be a string or a regex.
+git log --grep="<pattern>"	Searches for commits with a commit message. The <pattern> argument can be a string or a regex.
+git log <since>..<until>	Displays only commits that occur between <since> and <until> arguments. Both can be either a commit ID, a branch name, HEAD, or any other kind of revision reference.
+git log <file>	Displays those commits that include the specified file. which makes it easier to see file’s history.
+git log --graph --decorate --oneline	The --graph flag draws a text based graph of the commits on the left hand side of the commit messages. The --decorate flag adds the names of branches or tags of the displayed commits. The --online flag displays the commit information on a single line making it easier to immediately browse through commits.
+****************************************************************************************************************************************
+git workflow
+Working area--> Staging Area--> Repository
+git diff                                        if we want to see the changes Working area and Staging Are(Its displays only modified one not the new file)
+git diff --staged                               We can verify the changes from working area and Staging Area with all
+git rm "file name"                              To delete the file
+git diff test.txt                               To get the difference on specific file
+git diff HEAD                                   To compare current working directory with current repository 
+git diff HEAD test.txt
+git diff --staged HEAD
+git diff "1st commitid" "2nd commitid"          To get the diff between two commits
+git diff HEAD HEAD^                             To get the diff between last and last two commits
+****************************************************************************************************************************************
+git remote add origin "https://github.com/snarendevops/gittest.git"      to link git with centralized repository
+git pull origin master --allow-unrelated-histories
+****************************************************************************************************************************************
+git branch                                    ---- to list and to know current branch
+git branch "branch name"                      ---- to create a new branch
+git checkout "branch name"                    ---- to connect the branch
+git branch -m "old name" "new name"           ---- Rename the branch
+git branch -d "branch name" (-D to delete forcefully) ---- Delete the branch (Need to checkout anothe branch then only we can delete the Branch)
+git checkout -b "branch name"                 ---- creates new branch and checkout to the new branch
+
+git merge feature & git push origin master    ---- If we need to merge fature branch files to master then checkout to master then exicute this command
+git reset HEAD mastertest1.txt git checkout -- mastertest1.txt  ---- removing the changes from stage to working area means we done some change added to stage but we need to rever then we can use it(Here add the code but not commited)
+git reset HEAD~                               ---- We wanted revert the code, once after commit the code.
+git merge dev -m "adding"                     
+git commit -am "adding"
+git pull --rebase origin master               ---- some changes already done in github and now moving my changes to avoid the confilct use this command then push the code using "git push origin master"
+****************************************************************************************************************************************
+git Stash
+git stals apply
+git stals list
+git stals drop
