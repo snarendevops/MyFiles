@@ -51,6 +51,10 @@ git reset HEAD~                               ---- We wanted revert the code, on
 git merge dev -m "adding"                     
 git commit -am "adding"
 git pull --rebase origin master               ---- some changes already done in github and now moving my changes to avoid the confilct use this command then push the code using "git push origin master"
+git fetch 
+git log origin/main
+git merge origin/main
+git pull = git fetch + git merge
 ****************************************************************************************************************************************
 git Stash
 git stals apply
