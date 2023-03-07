@@ -1,0 +1,37 @@
+---------------------------------------
+What is ARG ?
+---------------------------------------
+ARG instruction defines a variable that can be used to build a Docker image.
+ARG values are not available after the image is built.
+In the running container you can’t access the ARG variables.
+Once ARG variable is defined in the Dockerfile, you can always override the values by passing command line argument as shown below
+If you need to pass two variables using CMD line then you need to use --build-arg two times
+
+docker build -t test --build-arg VARIABLE_1=7 --build-arg VAR_2=8 .
+
+We can have multiple ARG instruction in the Dockerfile. 
+ARG is the only instruction that can precede the FROM instruction in the Dockerfile.
+Example of using ARG argument in the Dockerfile
+
+FROM alpine:3.7
+ARG VARIABLE_1=5
+RUN echo $VARIABLE_1
+
+---------------------------------------
+What is ENV?
+---------------------------------------
+ENV is to provide default values for your future environment variables inside the container
+We can’t change the ENV variable using command line argument directly
+If we need to change the ENV variable using CMD line then we have to use ARG and place ARG variable in ENV variable
+In the below Dockerfile, we have created two variables , one as ARG and one as ENV
+
+Using ARG Value in ENV Variable
+FROM alpine:3.7
+ARG VARIABLE_1=5
+ENV VARIABLE_2=$VARIABLE_1
+RUN echo "print variable value:" $VARIABLE_1
+RUN echo " print ENV variable : " $VARIABLE_2
+
+Build the docker image directly
+You will both variable having same values as defined for ARG variable
+docker build .

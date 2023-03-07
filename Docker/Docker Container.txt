@@ -11,6 +11,13 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 docker rmi $(docker ps -a -q)
 docker exec -ti jenkins1 bash
+docker rename "old name" "new name" ----rename the container
+docker run -d -p 8090:8080 -e "test=4321" -e "var1=overwritevariable" --name jenkins1 jenkins/jenkins:latest  ---overwrite the environment variablevalue
+docker cp test.html ngix:/usr/share/nginx/html   --copy files from host to container
+docker cp ngix:/usr/share/nginx/html test.html   --copy files from container to host 
+docker image/container prune --to delete exited image/container
+docker commit "containerid" imagename"  --create image using container
+docker run --rm -ti jenkins1 bash --automatically delete container
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 Variable in docker container, can be access in docker container itself, can't be access from outside of the container.
 1. variable can be pass from the file like below.
